@@ -14,6 +14,7 @@ func main() {
 	rightList := make([]int, 0)
 	distanceList := make([]int, 0)
 	sumDistance := 0
+	similarityScore := 0
 
 	file, err := os.Open("./day1/data.txt")
 	if err != nil {
@@ -51,5 +52,16 @@ func main() {
 		sumDistance = sumDistance + v
 	}
 
-	fmt.Println("The total distance and the answer for day 1 is: ", sumDistance)
+	for _, left := range leftList {
+		similarCount := 0
+		for _, right := range rightList {
+			if left == right {
+				similarCount++
+			}
+		}
+		similarityScore = similarityScore + (left * similarCount)
+	}
+
+	fmt.Println("The total distance and the answer for day 1, part 1 is: ", sumDistance)
+	fmt.Println("The similarity score and the answer for day 1, part 2 is: ", similarityScore)
 }
